@@ -1,0 +1,26 @@
+---
+
+profile_acctd::crons: {}
+# examples of typical crons to add via environment Hiera
+# profile_acctd::crons:
+# "mycluster-acctd":
+#   command: "/root/cron_scripts/mycluster-acctd"
+#   environment:
+#     - "SHELL=/bin/sh"
+#   hour: "*"
+#   minute: 15  # avoid overlap with other clusters
+#   month: "*"
+#   monthday: "*"
+#   weekday: "*"
+#   user: "root"
+# "mycluster-resource_ou_sync":
+#   command: "/root/cron_scripts/mycluster-resource_ou_sync"
+#   environment:
+#     - "SHELL=/bin/sh"
+#   hour: "*"
+#   minute: "*/10"
+#   month: "*"
+#   monthday: "*"
+#   weekday: "*"
+#   user: "root"
+profile_acctd::dependencies: []

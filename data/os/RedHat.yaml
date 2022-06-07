@@ -1,0 +1,12 @@
+---
+
+profile_acctd::required_pkgs:
+  - "perl-Config-Simple"
+  - "perl-LDAP"
+  - "perl-Sys-Syslog"  # also used by profile_audit::root_equivalence.pp
+  - "perl-Text-Unidecode"
+  - "perl-JSON"
+  - "perl-DBI"
+  - "perl-DBD-mysql"
+  - "perl-MailTools"
+  - "perl-LWP-Protocol-https"
