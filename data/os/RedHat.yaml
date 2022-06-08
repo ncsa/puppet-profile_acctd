@@ -10,3 +10,4 @@ profile_acctd::required_pkgs:
   - "perl-DBD-mysql"
   - "perl-MailTools"
   - "perl-LWP-Protocol-https"
+  - "vim-enhanced"
