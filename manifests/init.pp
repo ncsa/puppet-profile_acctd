@@ -12,6 +12,21 @@
 #   crons), e.g.:
 #     - "Lvm::Logical_volume[root]"
 #
+# @param logs_archive_after_days
+#   Archive logs after they are this old (based on mtime).
+#
+# @param logs_archive_dir
+#   Where to archive older logs.
+#
+# @param logs_compress_after_days
+#   Compress logs after they are this old (based on mtime).
+#
+# @param logs_mgmt_script_path
+#   Path to the logs mgmt script.
+#
+# @param logs_path
+#   Where are logs located?
+#
 # @param required_pkgs
 #   Packages that must be installed to run acctd.
 #   
@@ -20,23 +35,35 @@
 #
 class profile_acctd (
 
-  Hash          $crons,
-  Array[String] $dependencies,
-  Array[String] $required_pkgs,
+  Hash              $crons,
+  Array[String]     $dependencies,
+  Integer           $logs_archive_after_days,
+  Optional[String]  $logs_archive_dir,
+  Integer           $logs_compress_after_days,
+  String            $logs_mgmt_script_path,
+  String            $logs_path,
+  Array[String]     $required_pkgs,
 
 ) {
-
   # Ensure required packages
-  ensure_packages( $required_pkgs, {'ensure' => 'installed' } )
+  ensure_packages ($required_pkgs, { 'ensure' => 'installed' })
+
+  # Ensure log management script
+  file { $logs_mgmt_script_path:
+    ensure  => file,
+    content => epp( 'profile_acctd/logs_mgmt_script' ),
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0750',
+  }
 
   # Ensure crons
   Cron {
     user        => 'root',
-    environment => [ 'SHELL=/bin/sh', ],
+    environment => ['SHELL=/bin/sh',],
     require     => $dependencies,
   }
   $crons.each | $k, $v | {
     cron { $k: * => $v }
   }
-
 }

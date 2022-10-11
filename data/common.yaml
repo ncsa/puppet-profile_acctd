@@ -23,4 +23,19 @@ profile_acctd::crons: {}
 #   monthday: "*"
 #   weekday: "*"
 #   user: "root"
+# "profile_acctd_logs_mgmt_script.sh":
+#   command: "/root/cron_scripts/profile_acctd_logs_mgmt_script.sh"
+#   environment:
+#     - "SHELL=/bin/sh"
+#   hour: "*"
+#   minute: "40"
+#   month: "*"
+#   monthday: "*"
+#   weekday: "1"
+#   user: "root"
 profile_acctd::dependencies: []
+profile_acctd::logs_archive_after_days: 120
+profile_acctd::logs_archive_dir: null
+profile_acctd::logs_compress_after_days: 90
+profile_acctd::logs_mgmt_script_path: "/root/cron_scripts/profile_acctd_logs_mgmt_script.sh"
+profile_acctd::logs_path: "/root/acctd_install_dir/logs"

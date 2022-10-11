@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# profile_acctd_logs_mgmt_script.sh: managed by Puppet
+
+if [ -d <%= $profile_acctd::logs_path %> ]; then
+  find <%= $profile_acctd::logs_path %> -type f -not -name "*.gz" -mtime +<%= $profile_acctd::logs_compress_after_days %> -exec gzip {} \;
+<% unless $profile_acctd::logs_archive_dir =~ Undef { -%>
+  if [ -d <%= $profile_acctd::logs_archive_dir %> ]; then
+    resources=`find <%= $profile_acctd::logs_path %> -mindepth 1 -maxdepth 1 -type d`
+    for i in $resources; do
+      dir=`basename $i`
+      mkdir -p <%= $profile_acctd::logs_archive_dir %>/${dir}
+      find <%= $profile_acctd::logs_path %>/${dir} -type f -mtime +<%= $profile_acctd::logs_archive_after_days %> -exec mv {} <%= $profile_acctd::logs_archive_dir %>/${dir} \;
+    done
+  else
+    echo "profile_acctd::logs_archive_dir: <%= $profile_acctd::logs_archive_dir %> does not exist"
+  fi
+<% } -%>
+else
+  echo "profile_acctd::logs_path: <%= $profile_acctd::logs_path %> does not exist"
+fi

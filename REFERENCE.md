@@ -28,6 +28,11 @@ The following parameters are available in the `profile_acctd` class:
 
 * [`crons`](#crons)
 * [`dependencies`](#dependencies)
+* [`logs_archive_after_days`](#logs_archive_after_days)
+* [`logs_archive_dir`](#logs_archive_dir)
+* [`logs_compress_after_days`](#logs_compress_after_days)
+* [`logs_mgmt_script_path`](#logs_mgmt_script_path)
+* [`logs_path`](#logs_path)
 * [`required_pkgs`](#required_pkgs)
 
 ##### <a name="crons"></a>`crons`
@@ -45,6 +50,36 @@ setting up acctd resources on a node. Should be in the form that would
 be specified as a requirement ("before") various other resources (e.g.,
 crons), e.g.:
   - "Lvm::Logical_volume[root]"
+
+##### <a name="logs_archive_after_days"></a>`logs_archive_after_days`
+
+Data type: `Integer`
+
+Archive logs after they are this old (based on mtime).
+
+##### <a name="logs_archive_dir"></a>`logs_archive_dir`
+
+Data type: `Optional[String]`
+
+Where to archive older logs.
+
+##### <a name="logs_compress_after_days"></a>`logs_compress_after_days`
+
+Data type: `Integer`
+
+Compress logs after they are this old (based on mtime).
+
+##### <a name="logs_mgmt_script_path"></a>`logs_mgmt_script_path`
+
+Data type: `String`
+
+Path to the logs mgmt script.
+
+##### <a name="logs_path"></a>`logs_path`
+
+Data type: `String`
+
+Where are logs located?
 
 ##### <a name="required_pkgs"></a>`required_pkgs`
 

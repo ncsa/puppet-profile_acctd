@@ -48,6 +48,23 @@ profile_acctd::crons:
     monthday: "*"
     weekday: "*"
     user: "root"
+  "profile_acctd_logs_mgmt_script.sh":
+    command: "/root/cron_scripts/profile_acctd_logs_mgmt_script.sh"
+    environment:
+      - "SHELL=/bin/sh"
+    hour: "*"
+    minute: 35  # avoid running too soon after the main acctd cron
+    month: "*"
+    monthday: "*"
+    weekday: "1"
+    user: "root"
+```
+
+If you want the profile_acctd_logs_mgmt_script.sh to archive the oldest log
+files (instead of just leaving them in place indefinitely after compressing),
+make sure to define the following:
+```yaml
+profile_acctd::logs_archive_dir: "/taiga/some/path/to/archive/folder"
 ```
 
 You can list resources managed by other Puppet modules that need to be in place before this
