@@ -1,6 +1,7 @@
 ---
 
 profile_acctd::required_pkgs:
+  - "jq"
   - "perl-Config-Simple"
   - "perl-LDAP"
   - "perl-Sys-Syslog"  # also used by profile_audit::root_equivalence.pp
