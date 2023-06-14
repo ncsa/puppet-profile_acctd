@@ -28,8 +28,8 @@ include ::profile_acctd
 It is recommended to have this profile enforce cron resources related to acctd:
 ```yaml
 profile_acctd::crons:
-  "<cluster>-acctd":
-    command: "/root/cron_scripts/<cluster>-acctd"
+  "acctd-cron":
+    command: "/root/acctd/cron/acctd-cron"
     environment:
       - "SHELL=/bin/sh"
     hour: "*"
@@ -38,12 +38,32 @@ profile_acctd::crons:
     monthday: "*"
     weekday: "*"
     user: "root"
-  "<cluster>-resource_ou_sync":
-    command: "/root/cron_scripts/<cluster>-resource_ou_sync"
+  "ou_sync-cron":
+    command: "/root/acctd/cron/ou_sync-cron"
     environment:
       - "SHELL=/bin/sh"
     hour: "*"
     minute: "*/10"
+    month: "*"
+    monthday: "*"
+    weekday: "*"
+    user: "root"
+  "grace-archive":
+    command: "/root/acctd/cron/grace-archive"
+    environment:
+      - "SHELL=/bin/sh"
+    hour: [9, 15]
+    minute: 20  # avoid overlap with other clusters
+    month: "*"
+    monthday: "*"
+    weekday: "*"
+    user: "root"
+  "archive-data-sweeper":
+    command: "/root/acctd/cron/archive-data-sweeper"
+    environment:
+      - "SHELL=/bin/sh"
+    hour: [10, 16]
+    minute: 25  # avoid overlap with other clusters
     month: "*"
     monthday: "*"
     weekday: "*"
@@ -57,6 +77,16 @@ profile_acctd::crons:
     month: "*"
     monthday: "*"
     weekday: "1"
+    user: "root"
+  "send-jobs-cron":
+    command: "/root/acctd/cron/sendjobs-cron"
+    environment:
+      - "SHELL=/bin/sh"
+    hour: "*"
+    minute: 42  # avoid overlap with other clusters
+    month: "*"
+    monthday: "*"
+    weekday: "*"
     user: "root"
 ```
 
@@ -74,9 +104,12 @@ profile_acctd::dependencies:
   - "Lvm::Logical_volume[root]"
 ```
 
-This profile does NOT manage rsyslog. But here are changes you'd currently want to make in
-Hiera related to [profile_rsyslog](https://github.com/ncsa/puppet-profile_rsyslog) to improve logging config. Some or all of this will likely
-get rolled into profile_rsyslog shortly (see [SVCPLAN-1561](https://jira.ncsa.illinois.edu/browse/SVCPLAN-1561)).
+This profile does NOT manage rsyslog. But here are changes you'd currently want
+to make in Hiera related to
+[profile_rsyslog](https://github.com/ncsa/puppet-profile_rsyslog) to improve
+logging config. Some or all of this will likely get rolled into profile_rsyslog
+shortly (see [SVCPLAN-3616](https://jira.ncsa.illinois.edu/browse/SVCPLAN-3616)).
+And hopefully anything acctd-related can be added to this profile and merged in.
 ```yaml
 lookup_options:
   profile_rsyslog::config_global:
@@ -103,9 +136,16 @@ profile_rsyslog::config_rulesets:
           config:
             file: "/var/log/messages"
 ...
-# include standard actions 02-06
-# omit standard action 07_xcat_logs
-# include standard action "forward-to-log-collector-server-relp"
+... # include standard actions 02-06 ...
+...
+      - action:
+          name: "07_acctd"
+          type: "omfile"
+          facility: "local2.*"
+          config:
+            file: "/var/log/acctd"
+...
+... # include standard action "forward-to-log-collector-server-relp" ...
 ```
 
 ## Reference

@@ -3,39 +3,69 @@
 profile_acctd::crons: {}
 # examples of typical crons to add via environment Hiera
 # profile_acctd::crons:
-# "mycluster-acctd":
-#   command: "/root/cron_scripts/mycluster-acctd"
-#   environment:
-#     - "SHELL=/bin/sh"
-#   hour: "*"
-#   minute: 15  # avoid overlap with other clusters
-#   month: "*"
-#   monthday: "*"
-#   weekday: "*"
-#   user: "root"
-# "mycluster-resource_ou_sync":
-#   command: "/root/cron_scripts/mycluster-resource_ou_sync"
-#   environment:
-#     - "SHELL=/bin/sh"
-#   hour: "*"
-#   minute: "*/10"
-#   month: "*"
-#   monthday: "*"
-#   weekday: "*"
-#   user: "root"
-# "profile_acctd_logs_mgmt_script.sh":
-#   command: "/root/cron_scripts/profile_acctd_logs_mgmt_script.sh"
-#   environment:
-#     - "SHELL=/bin/sh"
-#   hour: "*"
-#   minute: "40"
-#   month: "*"
-#   monthday: "*"
-#   weekday: "1"
-#   user: "root"
+#   "acctd-cron":
+#     command: "/root/acctd/cron/acctd-cron"
+#     environment:
+#       - "SHELL=/bin/sh"
+#     hour: "*"
+#     minute: 15  # avoid overlap with other clusters
+#     month: "*"
+#     monthday: "*"
+#     weekday: "*"
+#     user: "root"
+#   "ou_sync-cron":
+#     command: "/root/acctd/cron/ou_sync-cron"
+#     environment:
+#       - "SHELL=/bin/sh"
+#     hour: "*"
+#     minute: "*/10"
+#     month: "*"
+#     monthday: "*"
+#     weekday: "*"
+#     user: "root"
+#   "grace-archive":
+#     command: "/root/acctd/cron/grace-archive"
+#     environment:
+#       - "SHELL=/bin/sh"
+#     hour: [9, 15]
+#     minute: 20  # avoid overlap with other clusters
+#     month: "*"
+#     monthday: "*"
+#     weekday: "*"
+#     user: "root"
+#   "archive-data-sweeper":
+#     command: "/root/acctd/cron/archive-data-sweeper"
+#     environment:
+#       - "SHELL=/bin/sh"
+#     hour: [10, 16]
+#     minute: 25  # avoid overlap with other clusters
+#     month: "*"
+#     monthday: "*"
+#     weekday: "*"
+#     user: "root"
+#   "profile_acctd_logs_mgmt_script.sh":
+#     command: "/root/cron_scripts/profile_acctd_logs_mgmt_script.sh"
+#     environment:
+#       - "SHELL=/bin/sh"
+#     hour: "*"
+#     minute: "40"
+#     month: "*"
+#     monthday: "*"
+#     weekday: "1"
+#     user: "root"
+#   "send-jobs-cron":
+#     command: "/root/acctd/cron/sendjobs-cron"
+#     environment:
+#       - "SHELL=/bin/sh"
+#     hour: "*"
+#     minute: 42  # avoid overlap with other clusters
+#     month: "*"
+#     monthday: "*"
+#     weekday: "*"
+#     user: "root"
 profile_acctd::dependencies: []
 profile_acctd::logs_archive_after_days: 120
 profile_acctd::logs_archive_dir: null
 profile_acctd::logs_compress_after_days: 90
 profile_acctd::logs_mgmt_script_path: "/root/cron_scripts/profile_acctd_logs_mgmt_script.sh"
-profile_acctd::logs_path: "/root/acctd_install_dir/logs"
+profile_acctd::logs_path: "/root/acctd/logs"
