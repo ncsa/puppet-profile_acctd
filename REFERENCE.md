@@ -26,22 +26,30 @@ include profile_acctd
 
 The following parameters are available in the `profile_acctd` class:
 
-* [`crons`](#crons)
-* [`dependencies`](#dependencies)
-* [`logs_archive_after_days`](#logs_archive_after_days)
-* [`logs_archive_dir`](#logs_archive_dir)
-* [`logs_compress_after_days`](#logs_compress_after_days)
-* [`logs_mgmt_script_path`](#logs_mgmt_script_path)
-* [`logs_path`](#logs_path)
-* [`required_pkgs`](#required_pkgs)
+* [`crons`](#-profile_acctd--crons)
+* [`custom_files`](#-profile_acctd--custom_files)
+* [`dependencies`](#-profile_acctd--dependencies)
+* [`logs_archive_after_days`](#-profile_acctd--logs_archive_after_days)
+* [`logs_archive_dir`](#-profile_acctd--logs_archive_dir)
+* [`logs_compress_after_days`](#-profile_acctd--logs_compress_after_days)
+* [`logs_mgmt_script_path`](#-profile_acctd--logs_mgmt_script_path)
+* [`logs_path`](#-profile_acctd--logs_path)
+* [`required_pkgs`](#-profile_acctd--required_pkgs)
 
-##### <a name="crons"></a>`crons`
+##### <a name="-profile_acctd--crons"></a>`crons`
 
 Data type: `Hash`
 
 Hash of data for cron resources. Examples included in data/ folder.
 
-##### <a name="dependencies"></a>`dependencies`
+##### <a name="-profile_acctd--custom_files"></a>`custom_files`
+
+Data type: `Hash`
+
+Hash of key (file name) and values (params for file resource). Generally used
+to manage custom scripts and config files.
+
+##### <a name="-profile_acctd--dependencies"></a>`dependencies`
 
 Data type: `Array[String]`
 
@@ -51,37 +59,39 @@ be specified as a requirement ("before") various other resources (e.g.,
 crons), e.g.:
   - "Lvm::Logical_volume[root]"
 
-##### <a name="logs_archive_after_days"></a>`logs_archive_after_days`
+##### <a name="-profile_acctd--logs_archive_after_days"></a>`logs_archive_after_days`
 
 Data type: `Integer`
 
 Archive logs after they are this old (based on mtime).
 
-##### <a name="logs_archive_dir"></a>`logs_archive_dir`
+##### <a name="-profile_acctd--logs_archive_dir"></a>`logs_archive_dir`
 
 Data type: `Optional[String]`
 
 Where to archive older logs.
 
-##### <a name="logs_compress_after_days"></a>`logs_compress_after_days`
+Default value: `undef`
+
+##### <a name="-profile_acctd--logs_compress_after_days"></a>`logs_compress_after_days`
 
 Data type: `Integer`
 
 Compress logs after they are this old (based on mtime).
 
-##### <a name="logs_mgmt_script_path"></a>`logs_mgmt_script_path`
+##### <a name="-profile_acctd--logs_mgmt_script_path"></a>`logs_mgmt_script_path`
 
 Data type: `String`
 
 Path to the logs mgmt script.
 
-##### <a name="logs_path"></a>`logs_path`
+##### <a name="-profile_acctd--logs_path"></a>`logs_path`
 
 Data type: `String`
 
 Where are logs located?
 
-##### <a name="required_pkgs"></a>`required_pkgs`
+##### <a name="-profile_acctd--required_pkgs"></a>`required_pkgs`
 
 Data type: `Array[String]`
 

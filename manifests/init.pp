@@ -5,6 +5,10 @@
 # @param crons
 #   Hash of data for cron resources. Examples included in data/ folder.
 #
+# @param custom_files
+#   Hash of key (file name) and values (params for file resource). Generally used
+#   to manage custom scripts and config files.
+#
 # @param dependencies
 #   Optionally list resources (e.g. mounts) that should be present before
 #   setting up acctd resources on a node. Should be in the form that would
@@ -36,13 +40,14 @@
 class profile_acctd (
 
   Hash              $crons,
+  Hash              $custom_files,
   Array[String]     $dependencies,
   Integer           $logs_archive_after_days,
-  Optional[String]  $logs_archive_dir,
   Integer           $logs_compress_after_days,
   String            $logs_mgmt_script_path,
   String            $logs_path,
   Array[String]     $required_pkgs,
+  Optional[String]  $logs_archive_dir = undef,
 
 ) {
   # Ensure required packages
@@ -55,6 +60,11 @@ class profile_acctd (
     owner   => 'root',
     group   => 'root',
     mode    => '0750',
+  }
+
+  # Ensure custom files
+  $custom_files.each | $k, $v | {
+    file { $k: * => $v }
   }
 
   # Ensure crons
