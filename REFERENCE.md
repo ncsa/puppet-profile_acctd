@@ -7,6 +7,7 @@
 ### Classes
 
 * [`profile_acctd`](#profile_acctd): Manage resources related to NCSA acctd.
+* [`profile_acctd::backup`](#profile_acctd--backup): Configure acctd backups
 
 ## Classes
 
@@ -96,4 +97,21 @@ Where are logs located?
 Data type: `Array[String]`
 
 Packages that must be installed to run acctd.
+
+### <a name="profile_acctd--backup"></a>`profile_acctd::backup`
+
+Configure acctd backups
+
+#### Parameters
+
+The following parameters are available in the `profile_acctd::backup` class:
+
+* [`locations`](#-profile_acctd--backup--locations)
+
+##### <a name="-profile_acctd--backup--locations"></a>`locations`
+
+Data type: `Array[String]`
+
+files and directories that are to be backed up#
+include profile_xcat::master::backup
 

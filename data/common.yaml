@@ -69,3 +69,5 @@ profile_acctd::logs_archive_after_days: 120
 profile_acctd::logs_compress_after_days: 90
 profile_acctd::logs_mgmt_script_path: "/root/cron_scripts/profile_acctd_logs_mgmt_script.sh"
 profile_acctd::logs_path: "/root/acctd/logs"
+profile_acctd::backup::locations:
+  - "/root"
