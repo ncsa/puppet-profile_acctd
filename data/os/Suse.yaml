@@ -1,0 +1,13 @@
+---
+profile_acctd::required_pkgs:
+  - "jq"
+  - "perl-Config-Simple"
+  - "perl-ldap"
+  - "perl-Unix-Syslog"  # also used by profile_audit::root_equivalence.pp
+  - "perl-Text-Unidecode"
+  - "perl-JSON"
+  - "perl-DBI"
+  - "perl-DBD-mysql"
+  - "perl-MailTools"
+  - "perl-LWP-Protocol-https"
+  - "xfsdump"  # for temporary backup solution (long-term, see SVCPLAN-1610)
